@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache no-svg no-inlinesvg no-smil no-svgclippaths" lang="en" style=""><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>PyTorch Cheat Sheet — PyTorch Tutorials 2.7.0+cu126 documentation</title>
+<style class="anchorjs"></style><link href="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/theme.css" rel="stylesheet" type="text/css">
+<!-- <link rel="stylesheet" href="../_static/pygments.css" type="text/css" /> -->
+<link href="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/pygments.css" rel="stylesheet" type="text/css">
+<link href="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/theme.css" rel="stylesheet" type="text/css">
+<link href="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/copybutton.css" rel="stylesheet" type="text/css">
+<link href="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/katex.min.css" rel="stylesheet" type="text/css">
+<link href="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/katex-math.css" rel="stylesheet" type="text/css">
+<link href="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/sg_gallery.css" rel="stylesheet" type="text/css">
+<link href="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/sg_gallery-binder.css" rel="stylesheet" type="text/css">
+<link href="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/sg_gallery-dataframe.css" rel="stylesheet" type="text/css">
+<link href="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/sg_gallery-rendered-html.css" rel="stylesheet" type="text/css">
+<link href="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" rel="stylesheet" type="text/css">
+<link href="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/katex.min_002.css" rel="stylesheet" type="text/css">
+<link href="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/custom.css" rel="stylesheet" type="text/css">
+<link href="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/custom2.css" rel="stylesheet" type="text/css">
+<link href="https://docs.pytorch.org/tutorials/genindex.html" rel="index" title="Index">
+<link href="https://docs.pytorch.org/tutorials/search.html" rel="search" title="Search">
+<!-- Google Tag Manager -->
+<script async="" src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/async-ads.js"></script><script type="text/javascript" async="" src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/insight.min.js"></script><script type="text/javascript" async="" src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/js_003"></script><script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/conversations-embed.js" type="text/javascript" id="hubspot-messages-loader" data-loader="hs-scriptloader" data-hsjs-portal="8112310" data-hsjs-env="prod" data-hsjs-hublet="na1"></script><script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/8112310_003.js" type="text/javascript" id="cookieBanner-8112310" data-cookieconsent="ignore" data-hs-ignore="true" data-loader="hs-scriptloader" data-hsjs-portal="8112310" data-hsjs-env="prod" data-hsjs-hublet="na1"></script><script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/8112310_002.js" type="text/javascript" id="hs-analytics"></script><script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/collectedforms.js" type="text/javascript" id="CollectedForms-8112310" crossorigin="anonymous" data-leadin-portal-id="8112310" data-leadin-env="prod" data-loader="hs-scriptloader" data-hsjs-portal="8112310" data-hsjs-env="prod" data-hsjs-hublet="na1"></script><script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/web-interactives-embed.js" type="text/javascript" id="hubspot-web-interactives-loader" crossorigin="anonymous" data-loader="hs-scriptloader" data-hsjs-portal="8112310" data-hsjs-env="prod" data-hsjs-hublet="na1"></script><script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/fb.js" type="text/javascript" id="hs-ads-pixel-8112310" data-ads-portal-id="8112310" data-ads-env="prod" data-loader="hs-scriptloader" data-hsjs-portal="8112310" data-hsjs-env="prod" data-hsjs-hublet="na1"></script><script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/leadflows.js" type="text/javascript" id="LeadFlows-8112310" crossorigin="anonymous" data-leadin-portal-id="8112310" data-leadin-env="prod" data-loader="hs-scriptloader" data-hsjs-portal="8112310" data-hsjs-env="prod" data-hsjs-hublet="na1"></script><script type="text/javascript" async="" src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/js"></script><script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/232741255631043.js" async=""></script><script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/243028289693773.js" async=""></script><script async="" src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/fbevents.js"></script><script async="" src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/gtm.js"></script><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T8XT4PS');</script>
+<!-- End Google Tag Manager -->
+<script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/modernizr.min.js"></script>
+<!-- Preload the theme fonts -->
+<link as="font" crossorigin="anonymous" href="https://docs.pytorch.org/tutorials/_static/fonts/FreightSans/freight-sans-book.woff2" rel="preload" type="font/woff2">
+<link as="font" crossorigin="anonymous" href="https://docs.pytorch.org/tutorials/_static/fonts/FreightSans/freight-sans-medium.woff2" rel="preload" type="font/woff2">
+<link as="font" crossorigin="anonymous" href="https://docs.pytorch.org/tutorials/_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" rel="preload" type="font/woff2">
+<link as="font" crossorigin="anonymous" href="https://docs.pytorch.org/tutorials/_static/fonts/FreightSans/freight-sans-bold.woff2" rel="preload" type="font/woff2">
+<link as="font" crossorigin="anonymous" href="https://docs.pytorch.org/tutorials/_static/fonts/FreightSans/freight-sans-medium-italic.woff2" rel="preload" type="font/woff2">
+<link as="font" crossorigin="anonymous" href="https://docs.pytorch.org/tutorials/_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" rel="preload" type="font/woff2">
+<!-- Preload the katex fonts -->
+<link as="font" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" rel="preload" type="font/woff2">
+<link as="font" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" rel="preload" type="font/woff2">
+<link as="font" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" rel="preload" type="font/woff2">
+<link as="font" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" rel="preload" type="font/woff2">
+<link as="font" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" rel="preload" type="font/woff2">
+<link as="font" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" rel="preload" type="font/woff2">
+<link as="font" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" rel="preload" type="font/woff2">
+<link as="font" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" rel="preload" type="font/woff2">
+<link crossorigin="anonymous" href="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" rel="stylesheet">
+<script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/cse_element__ru.js" type="text/javascript"></script><link type="text/css" href="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/default+ru.css" rel="stylesheet"><link type="text/css" href="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/default.css" rel="stylesheet"><style id="_goober"> .go2933276541{position:fixed;display:block;width:100%;height:0px;margin:0px;padding:0px;overflow:visible;transform-style:preserve-3d;background:transparent;backface-visibility:hidden;pointer-events:none;left:0px;z-index:9998;}.go2369186930{top:0px;z-index:9999;height:100%;width:100%;}.go1348078617{bottom:0px;}.go2417249464{position:fixed;z-index:9989;}.go3921366393{left:0;bottom:0;}.go3967842156{right:0;bottom:0;}.go613305155{left:0;top:0;}.go471583506{right:0;top:0;}.go3670563033{position:relative;overflow:hidden;display:none;}.go1041095097{display:block;}.go1632949049{position:absolute;pointer-events:none;width:101vw;height:101vh;background:rgba(0,0,0,0.7);opacity:0;z-index:-1;}.go2512015367{z-index:99998;opacity:0.8;visibility:visible;pointer-events:all;cursor:pointer;}.go1432718904{overflow:hidden;}.go812842568{display:block !important;position:static !important;box-sizing:border-box !important;background:transparent !important;border:none;min-height:0px !important;max-height:none !important;margin:0px;padding:0px !important;height:100% !important;width:1px !important;max-width:100% !important;min-width:100% !important;}.go4194603687{z-index:99999;visibility:hidden;position:absolute;inset:50vh auto auto 50%;transform:translate(-50%,-50%);left:50%;top:150%;pointer-events:none;max-height:95%;max-width:95%;}.go4258295619{pointer-events:auto !important;visibility:visible;top:50%;transition:top 0.75s linear(0,0.006,0.023 2.2%,0.096 4.8%,0.532 15.4%,0.72 21%,0.793,0.853 26.7%,0.902,0.941,0.968 36.2%,0.987 39.7%,1 43.7%,1.007 48.3%,1.009 55.3%,1.002 78.2%,1 );}.go456419034{transition:opacity 0.3s ease-in;}.go3128134379{pointer-events:auto !important;visibility:visible !important;max-height:95vh !important;transition:max-height 1s ease-in;}.go494047706{z-index:9999;width:100%;max-height:95%;position:fixed;visibility:hidden;}.go2481764524{z-index:9999;width:100%;max-height:95%;position:fixed;visibility:hidden;bottom:0px;}.go2685733372{visibility:hidden;}.go2985984737{visibility:visible !important;}.go3281949485{pointer-events:auto !important;visibility:visible !important;max-height:95vh !important;transform:none !important;}.go3508454897{z-index:9999;width:100%;max-height:95%;position:fixed;visibility:hidden;transition:transform 1s linear(0,0.006,0.022 2.3%,0.091 5.1%,0.18 7.6%,0.508 16.3%,0.607,0.691,0.762,0.822 28.4%,0.872,0.912 35.1%,0.944 38.9%,0.968 43%,0.985 47.6%,0.996 53.1%,1.001 58.4%,1.003 65.1%,1 );}.go988075951{z-index:9999;position:fixed;left:10px;top:10px;max-height:95vh !important;max-width:95%;visibility:hidden;}.go2699082514{z-index:9999;position:fixed;right:10px;top:10px;max-height:95vh !important;max-width:95%;visibility:hidden;}.go1595992025{z-index:9999;position:fixed;left:10px;bottom:10px;max-height:95vh !important;max-width:95%;visibility:hidden;}.go1222083472{z-index:9999;position:fixed;right:10px;bottom:10px;max-height:95vh !important;max-width:95%;visibility:hidden;}.go722322694{transition:none !important;}.go26732895{cursor:pointer;}.go2083580917{display:flex;justify-content:center;align-items:center;}</style><style type="text/css">html.hs-messages-widget-open.hs-messages-mobile,html.hs-messages-widget-open.hs-messages-mobile body{overflow:hidden!important;position:relative!important}html.hs-messages-widget-open.hs-messages-mobile body{height:100%!important;margin:0!important}#hubspot-messages-iframe-container{display:initial!important;z-index:2147483647;position:fixed!important;bottom:0!important}#hubspot-messages-iframe-container.widget-align-left{left:0!important}#hubspot-messages-iframe-container.widget-align-right{right:0!important}#hubspot-messages-iframe-container.internal{z-index:1016}#hubspot-messages-iframe-container.internal iframe{min-width:108px}#hubspot-messages-iframe-container .hs-shadow-container{display:initial!important;z-index:-1;position:absolute;width:0;height:0;bottom:0;content:""}#hubspot-messages-iframe-container .hs-shadow-container.internal{display:none!important}#hubspot-messages-iframe-container .hs-shadow-container.active{width:400px;height:400px}#hubspot-messages-iframe-container iframe{display:initial!important;width:100%!important;height:100%!important;border:none!important;position:absolute!important;bottom:0!important;right:0!important;background:transparent!important}.hs-drag-handle{position:absolute;bottom:16px;cursor:grab;height:60px;display:none;align-items:center}.hs-drag-handle--right{right:76px}.hs-drag-handle--left{left:76px}.hs-drag-overlay{position:absolute;top:0;left:0;right:0;bottom:0;user-select:none;z-index:999;display:none}</style><script async="" src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/js_002"></script><style type="text/css">.gsc-control-cse{font-family:arial, sans-serif}.gsc-control-cse .gsc-table-result{font-family:arial, sans-serif}.gsc-refinementsGradient{background:linear-gradient(to left,rgba(255,255,255,1),rgba(255,255,255,0))}.gsc-control-cse{border-color:#f3f4f7;background-color:#f3f4f7}input.gsc-input,.gsc-input-box,.gsc-input-box-hover,.gsc-input-box-focus{border-color:#EEEEEE}.gsc-search-button-v2,.gsc-search-button-v2:hover,.gsc-search-button-v2:focus{border-color:#ee4c2c;background-color:#ee4c2c;background-image:none;filter:none}.gsc-search-button-v2 svg{fill:#FFFFFF}.gsc-tabHeader.gsc-tabhActive,.gsc-refinementHeader.gsc-refinementhActive{color:#ee4c2c;border-color:#ee4c2c;background-color:#FFFFFF}.gsc-tabHeader.gsc-tabhInactive,.gsc-refinementHeader.gsc-refinementhInactive{color:#212529;border-color:#212529;background-color:#FFFFFF}.gsc-webResult.gsc-result,.gsc-results .gsc-imageResult{border-color:#FFFFFF;background-color:#FFFFFF}.gsc-webResult.gsc-result:hover{border-color:#FFFFFF;background-color:#FFFFFF}.gs-webResult.gs-result a.gs-title:link,.gs-webResult.gs-result a.gs-title:link b,.gs-imageResult a.gs-title:link,.gs-imageResult a.gs-title:link b{color:#ee4c2c}.gs-webResult.gs-result a.gs-title:visited,.gs-webResult.gs-result a.gs-title:visited b,.gs-imageResult a.gs-title:visited,.gs-imageResult a.gs-title:visited b{color:#ee4c2c}.gs-webResult.gs-result a.gs-title:hover,.gs-webResult.gs-result a.gs-title:hover b,.gs-imageResult a.gs-title:hover,.gs-imageResult a.gs-title:hover b{color:#ee4c2c}.gs-webResult.gs-result a.gs-title:active,.gs-webResult.gs-result a.gs-title:active b,.gs-imageResult a.gs-title:active,.gs-imageResult a.gs-title:active b{color:#ee4c2c}.gsc-cursor-page{color:#ee4c2c}a.gsc-trailing-more-results:link{color:#ee4c2c}.gs-webResult:not(.gs-no-results-result):not(.gs-error-result) .gs-snippet,.gs-fileFormatType{color:#333333}.gs-webResult div.gs-visibleUrl{color:#212529}.gs-webResult div.gs-visibleUrl-short{color:#212529}.gs-webResult div.gs-visibleUrl-short{display:none}.gs-webResult div.gs-visibleUrl-long{display:none}.gs-webResult div.gs-visibleUrl-breadcrumb{display:block}.gs-promotion div.gs-visibleUrl-short{display:none}.gs-promotion div.gs-visibleUrl-long{display:block}.gs-promotion div.gs-visibleUrl-breadcrumb{display:none}.gsc-cursor-box{border-color:#FFFFFF}.gsc-results .gsc-cursor-box .gsc-cursor-page{border-color:#212529;background-color:#FFFFFF;color:#212529}.gsc-results .gsc-cursor-box .gsc-cursor-current-page{border-color:#ee4c2c;background-color:#FFFFFF;color:#ee4c2c}.gsc-webResult.gsc-result.gsc-promotion{border-color:#FFFFFF;background-color:#F6F6F6}.gsc-completion-title{color:#ee4c2c}.gsc-completion-snippet{color:#333333}.gs-promotion a.gs-title:link,.gs-promotion a.gs-title:link *,.gs-promotion .gs-snippet a:link{color:#ee4c2c}.gs-promotion a.gs-title:visited,.gs-promotion a.gs-title:visited *,.gs-promotion .gs-snippet a:visited{color:#ee4c2c}.gs-promotion a.gs-title:hover,.gs-promotion a.gs-title:hover *,.gs-promotion .gs-snippet a:hover{color:#ee4c2c}.gs-promotion a.gs-title:active,.gs-promotion a.gs-title:active *,.gs-promotion .gs-snippet a:active{color:#ee4c2c}.gs-promotion .gs-snippet,.gs-promotion .gs-title .gs-promotion-title-right,.gs-promotion .gs-title .gs-promotion-title-right *{color:#333333}.gs-promotion .gs-visibleUrl,.gs-promotion .gs-visibleUrl-short{color:#212529}.gcsc-find-more-on-google{color:#ee4c2c}.gcsc-find-more-on-google-magnifier{fill:#ee4c2c}</style><style type="text/css">.gscb_a{display:inline-block;font:27px/13px arial,sans-serif}.gsst_a .gscb_a{color:#a1b9ed;cursor:pointer}.gsst_a:hover .gscb_a,.gsst_a:focus .gscb_a{color:#36c}.gsst_a{display:inline-block}.gsst_a{cursor:pointer;padding:0 4px}.gsst_a:hover{text-decoration:none!important}.gsst_b{font-size:16px;padding:0 2px;position:relative;user-select:none;-moz-user-select:none;white-space:nowrap}.gsst_e{vertical-align:middle;opacity:0.55;}.gsst_a:hover .gsst_e,.gsst_a:focus .gsst_e{opacity:0.72;}.gsst_a:active .gsst_e{opacity:1;}.gsst_f{background:white;text-align:left}.gsst_g{background-color:white;border:1px solid #ccc;border-top-color:#d9d9d9;box-shadow:0 2px 4px rgba(0,0,0,0.2);-moz-box-shadow:0 2px 4px rgba(0,0,0,0.2);margin:-1px -3px;padding:0 6px}.gsst_h{background-color:white;height:1px;margin-bottom:-1px;position:relative;top:-1px}.gsib_a{width:100%;padding:4px 6px 0}.gsib_a,.gsib_b{vertical-align:top}.gssb_c{border:0;position:absolute;z-index:989}.gssb_e{border:1px solid #ccc;border-top-color:#d9d9d9;box-shadow:0 2px 4px rgba(0,0,0,0.2);-moz-box-shadow:0 2px 4px rgba(0,0,0,0.2);cursor:default}.gssb_f{visibility:hidden;white-space:nowrap}.gssb_k{border:0;display:block;position:absolute;top:0;z-index:988}.gsdd_a{border:none!important}.gsq_a{padding:0}.gssb_a{padding:0 7px}.gssb_a,.gssb_a td{white-space:nowrap;overflow:hidden;line-height:22px}#gssb_b{font-size:11px;color:#36c;text-decoration:none}#gssb_b:hover{font-size:11px;color:#36c;text-decoration:underline}.gssb_g{text-align:center;padding:8px 0 7px;position:relative}.gssb_h{font-size:15px;height:28px;margin:0.2em}.gssb_i{background:#eee}.gss_ifl{visibility:hidden;padding-left:5px}.gssb_i .gss_ifl{visibility:visible}a.gssb_j{font-size:13px;color:#36c;text-decoration:none;line-height:100%}a.gssb_j:hover{text-decoration:underline}.gssb_l{height:1px;background-color:#e5e5e5}.gssb_m{color:#000;background:#fff}.gssb_a{padding:0 9px}.gsib_a{padding:5px 9px 4px 9px}.gscb_a{line-height:27px}.gssb_e{border:0}.gssb_l{margin:5px 0}input.gsc-input::-webkit-input-placeholder{font-size:14px}input.gsc-input:-moz-placeholder{font-size:14px}input.gsc-input::-moz-placeholder{font-size:14px}input.gsc-input:-ms-input-placeholder{font-size:14px}input.gsc-input:focus::-webkit-input-placeholder{color:transparent}input.gsc-input:focus:-moz-placeholder{color:transparent}input.gsc-input:focus::-moz-placeholder{color:transparent}input.gsc-input:focus:-ms-input-placeholder{color:transparent}.gssb_c .gsc-completion-container{position:static}.gssb_c{z-index:5000}.gsc-completion-container table{background:transparent;font-size:inherit;font-family:inherit}.gssb_c > tbody > tr,.gssb_c > tbody > tr > td,.gssb_d,.gssb_d > tbody > tr,.gssb_d > tbody > tr > td,.gssb_e,.gssb_e > tbody > tr,.gssb_e > tbody > tr > td{padding:0;margin:0;border:0}.gssb_a table,.gssb_a table tr,.gssb_a table tr td{padding:0;margin:0;border:0}</style></head>
+<body class="pytorch-body"><div id="hs-web-interactives-top-push-anchor" class="go3670563033"></div><div class="container-fluid header-holder tutorials-header" id="header-holder">
+<div class="container">
+<div class="header-container">
+<a aria-label="PyTorch" class="header-logo" href="https://pytorch.org/"></a>
+<div class="main-menu">
+<ul>
+<li class="main-menu-item">
+<div class="resources-dropdown" data-toggle="resources-dropdown" id="resourcesDropdownButton">
+<a class="with-down-arrow">
+                Learn
+              </a>
+<div class="resources-dropdown-menu">
+<a class="nav-dropdown-item" href="https://pytorch.org/get-started">
+<span class="dropdown-title">Get Started</span>
+<p>Run PyTorch locally or get started quickly with one of the supported cloud platforms</p>
+</a>
+<a class="nav-dropdown-item" href="https://pytorch.org/tutorials">
+<span class="dropdown-title">Tutorials</span>
+<p>Whats new in PyTorch tutorials</p>
+</a>
+<a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/basics/intro.html">
+<span class="dropdown-title">Learn the Basics</span>
+<p>Familiarize yourself with PyTorch concepts and modules</p>
+</a>
+<a class="nav-dropdown-item" href="https://pytorch.org/tutorials/recipes/recipes_index.html">
+<span class="dropdown-title">PyTorch Recipes</span>
+<p>Bite-size, ready-to-deploy PyTorch code examples</p>
+</a>
+<a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/introyt.html">
+<span class="dropdown-title">Intro to PyTorch - YouTube Series</span>
+<p>Master PyTorch basics with our engaging YouTube tutorial series</p>
+</a>
+</div>
+</div>
+</li>
+<li>
+<div class="resources-dropdown" data-toggle="resources-dropdown" id="resourcesDropdownButton">
+<a class="with-down-arrow">
+                Ecosystem
+              </a>
+<div class="resources-dropdown-menu">
+<a class="nav-dropdown-item" href="https://pytorch.org/ecosystem">
+<span class="dropdown-title">Tools</span>
+<p>Learn about the tools and frameworks in the PyTorch Ecosystem</p>
+</a>
+<a class="nav-dropdown-item" href="https://pytorch.org/#community-module">
+<span class="dropdown-title">Community</span>
+<p>Join the PyTorch developer community to contribute, learn, and get your questions answered</p>
+</a>
+<a class="nav-dropdown-item" href="https://discuss.pytorch.org/" target="_blank">
+<span class="dropdown-title">Forums</span>
+<p>A place to discuss PyTorch code, issues, install, research</p>
+</a>
+<a class="nav-dropdown-item" href="https://pytorch.org/resources">
+<span class="dropdown-title">Developer Resources</span>
+<p>Find resources and get questions answered</p>
+</a>
+<a class="nav-dropdown-item" href="https://pytorch.org/ecosystem/contributor-awards-2024">
+<span class="dropdown-title">Contributor Awards - 2024</span>
+<p>Award winners announced at this year's PyTorch Conference</p>
+</a>
+</div>
+</div>
+</li>
+<li>
+<div class="resources-dropdown" data-toggle="resources-dropdown" id="resourcesDropdownButton">
+<a class="with-down-arrow">
+                Edge
+              </a>
+<div class="resources-dropdown-menu">
+<a class="nav-dropdown-item" href="https://pytorch.org/edge">
+<span class="dropdown-title">About PyTorch Edge</span>
+<p>Build innovative and privacy-aware AI experiences for edge devices</p>
+</a>
+<a class="nav-dropdown-item" href="https://pytorch.org/executorch-overview">
+<span class="dropdown-title">ExecuTorch</span>
+<p>End-to-end solution for enabling on-device inference capabilities across mobile and edge devices</p>
+</a>
+<a class="nav-dropdown-item" href="https://pytorch.org/executorch/stable/index.html">
+<span class="dropdown-title">ExecuTorch Docs</span>
+</a>
+</div>
+</div>
+</li>
+<li class="main-menu-item">
+<div class="resources-dropdown" data-toggle="resources-dropdown" id="resourcesDropdownButton">
+<a class="with-down-arrow">
+                Docs
+              </a>
+<div class="resources-dropdown-menu">
+<a class="nav-dropdown-item" href="https://pytorch.org/docs/stable/index.html">
+<span class="dropdown-title">PyTorch</span>
+<p>Explore the documentation for comprehensive guidance on how to use PyTorch</p>
+</a>
+<a class="nav-dropdown-item" href="https://pytorch.org/pytorch-domains">
+<span class="dropdown-title">PyTorch Domains</span>
+<p>Read the PyTorch Domains documentation to learn more about domain-specific libraries</p>
+</a>
+</div>
+</div>
+</li>
+<li>
+<div class="resources-dropdown" data-toggle="resources-dropdown" id="resourcesDropdownButton">
+<a class="with-down-arrow">
+                Blogs &amp; News 
+              </a>
+<div class="resources-dropdown-menu">
+<a class="nav-dropdown-item" href="https://pytorch.org/blog/">
+<span class="dropdown-title">PyTorch Blog</span>
+<p>Catch up on the latest technical news and happenings</p>
+</a>
+<a class="nav-dropdown-item" href="https://pytorch.org/community-blog">
+<span class="dropdown-title">Community Blog</span>
+<p>Stories from the PyTorch ecosystem</p>
+</a>
+<a class="nav-dropdown-item" href="https://pytorch.org/videos">
+<span class="dropdown-title">Videos</span>
+<p>Learn about the latest PyTorch tutorials, new, and more </p>
+</a><a class="nav-dropdown-item" href="https://pytorch.org/community-stories">
+<span class="dropdown-title">Community Stories</span>
+<p>Learn how our community solves real, everyday machine learning problems with PyTorch</p>
+</a>
+<a class="nav-dropdown-item" href="https://pytorch.org/events">
+<span class="dropdown-title">Events</span>
+<p>Find events, webinars, and podcasts</p>
+</a>
+<a class="nav-dropdown-item" href="https://pytorch.org/newsletter">
+<span class="dropdown-title">Newsletter</span>
+<p>Stay up-to-date with the latest updates</p>
+</a>
+</div>
+</div></li>
+<li>
+<div class="resources-dropdown" data-toggle="resources-dropdown" id="resourcesDropdownButton">
+<a class="with-down-arrow">
+                About
+              </a>
+<div class="resources-dropdown-menu">
+<a class="nav-dropdown-item" href="https://pytorch.org/foundation">
+<span class="dropdown-title">PyTorch Foundation</span>
+<p>Learn more about the PyTorch Foundation</p>
+</a>
+<a class="nav-dropdown-item" href="https://pytorch.org/governing-board">
+<span class="dropdown-title">Governing Board</span>
+</a>
+<a class="nav-dropdown-item" href="https://pytorch.org/credits">
+<span class="dropdown-title">Cloud Credit Program</span>
+</a>
+<a class="nav-dropdown-item" href="https://pytorch.org/tac">
+<span class="dropdown-title">Technical Advisory Council</span>
+</a>
+<a class="nav-dropdown-item" href="https://pytorch.org/staff">
+<span class="dropdown-title">Staff</span>
+</a>
+<a class="nav-dropdown-item" href="https://pytorch.org/contact-us">
+<span class="dropdown-title">Contact Us</span>
+</a>
+</div>
+</div>
+</li>
+<li class="main-menu-item">
+<div class="no-dropdown">
+<a data-cta="join" href="https://pytorch.org/join">
+                Become a Member
+              </a>
+</div>
+</li>
+<li>
+<div class="main-menu-item">
+<a class="github-icon" href="https://github.com/pytorch/pytorch">
+</a>
+</div>
+</li>
+<!--- TODO: This block adds the search icon to the nav bar. We will enable it later. 
+          <li>
+            <div class="main-menu-item">
+             <a href="https://github.com/pytorch/pytorch" class="search-icon">
+             </a>
+            </div>
+          </li>
+          --->
+</ul>
+</div>
+<a class="main-menu-open-button" data-behavior="open-mobile-menu" href="#"></a>
+</div>
+</div>
+</div>
+
+<div class="table-of-contents-link-wrapper">
+<span>Table of Contents</span>
+<a class="toggle-table-of-contents" data-behavior="toggle-table-of-contents" href="#"></a>
+</div>
+<nav class="pytorch-left-menu" data-toggle="wy-nav-shift" id="pytorch-left-menu" style="height: 100%;">
+<div class="pytorch-side-scroll">
+<div aria-label="main navigation" class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation">
+<div class="pytorch-left-menu-search">
+<div class="version">
+        2.7.0+cu126
+      </div>
+<!-- Search box -->
+<div id="searchBox">
+<div class="searchbox" id="googleSearchBox" style="display: block;">
+<script async="" src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/f.txt"></script>
+<div id="___gcse_0"><div class="gsc-control-cse gsc-control-cse-ru"><div class="gsc-control-wrapper-cse" dir="ltr"><form class="gsc-search-box gsc-search-box-tools" accept-charset="utf-8" data-hs-cf-bound="true"><table cellspacing="0" cellpadding="0" role="presentation" class="gsc-search-box"><tbody><tr><td class="gsc-input"><div class="gsc-input-box" id="gsc-iw-id1"><table cellspacing="0" cellpadding="0" style="width: 100%; padding: 0px;" role="presentation" id="gs_id50" class="gstl_50 gsc-input"><tbody><tr><td id="gs_tti50" class="gsib_a"><input autocomplete="off" type="text" size="10" class="gsc-input" name="search" title="поиск" aria-label="поиск" style="width: 100%; padding: 0px; border: medium; margin: 0px; height: auto; outline: none; font-family: FreightSans; font-size: 1.2rem; color: rgb(38, 38, 38);" id="gsc-i-id1" dir="ltr" spellcheck="false" placeholder="Search Docs"></td><td class="gsib_b"><div class="gsst_b" id="gs_st50" dir="ltr"><a class="gsst_a" href="javascript:void(0)" style="display: none;" title="Очистить окно поиска" role="button"><span class="gscb_a" id="gs_cb50" aria-hidden="true">×</span></a></div></td></tr></tbody></table></div></td><td class="gsc-search-button"><button class="gsc-search-button gsc-search-button-v2"><svg width="13" height="13" viewBox="0 0 13 13"><title>поиск</title><path d="m4.8495 7.8226c0.82666 0 1.5262-0.29146 2.0985-0.87438 0.57232-0.58292 0.86378-1.2877 0.87438-2.1144 0.010599-0.82666-0.28086-1.5262-0.87438-2.0985-0.59352-0.57232-1.293-0.86378-2.0985-0.87438-0.8055-0.010599-1.5103 0.28086-2.1144 0.87438-0.60414 0.59352-0.8956 1.293-0.87438 2.0985 0.021197 0.8055 0.31266 1.5103 0.87438 2.1144 0.56172 0.60414 1.2665 0.8956 2.1144 0.87438zm4.4695 0.2115 3.681 3.6819-1.259 1.284-3.6817-3.7 0.0019784-0.69479-0.090043-0.098846c-0.87973 0.76087-1.92 1.1413-3.1207 1.1413-1.3553 0-2.5025-0.46363-3.4417-1.3909s-1.4088-2.0686-1.4088-3.4239c0-1.3553 0.4696-2.4966 1.4088-3.4239 0.9392-0.92727 2.0864-1.3969 3.4417-1.4088 1.3553-0.011889 2.4906 0.45771 3.406 1.4088 0.9154 0.95107 1.379 2.0924 1.3909 3.4239 0 1.2126-0.38043 2.2588-1.1413 3.1385l0.098834 0.090049z"></path></svg></button></td><td class="gsc-clear-button"><div class="gsc-clear-button" title="удалить результаты">&nbsp;</div></td></tr></tbody></table></form><div class="gsc-results-wrapper-overlay"><div class="gsc-results-close-btn" tabindex="0"></div><div class="gsc-positioningWrapper"><div class="gsc-tabsAreaInvisible"><div aria-label="refinement" role="tab" class="gsc-tabHeader gsc-inline-block gsc-tabhActive">Система пользовательского поиска</div><span class="gs-spacer"> </span></div></div><div class="gsc-positioningWrapper"><div class="gsc-refinementsAreaInvisible"></div></div><div class="gsc-above-wrapper-area-invisible"><div class="gsc-above-wrapper-area-backfill-container"></div><table cellspacing="0" cellpadding="0" role="presentation" class="gsc-above-wrapper-area-container"><tbody><tr><td class="gsc-result-info-container"><div class="gsc-result-info-invisible"></div></td><td class="gsc-orderby-container"><div class="gsc-orderby-invisible"><div class="gsc-orderby-label gsc-inline-block">Упорядочить:</div><div class="gsc-option-menu-container gsc-inline-block"><div class="gsc-selected-option-container gsc-inline-block"><div class="gsc-selected-option">Relevance</div><div class="gsc-option-selector"></div></div><div class="gsc-option-menu-invisible"><div class="gsc-option-menu-item gsc-option-menu-item-highlighted"><div class="gsc-option">Relevance</div></div><div class="gsc-option-menu-item"><div class="gsc-option">Date</div></div></div></div></div></td></tr></tbody></table></div><div class="gsc-adBlockInvisible"></div><div class="gsc-wrapper"><div class="gsc-adBlockInvisible"></div><div class="gsc-resultsbox-invisible"><div class="gsc-resultsRoot gsc-tabData gsc-tabdActive"><div><div class="gsc-expansionArea"></div></div></div></div></div></div><div class="gsc-modal-background-image" tabindex="0"></div></div></div></div>
+</div>
+<div id="sphinxSearchBox" style="display: none;">
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get" data-hs-cf-bound="true">
+<input name="q" placeholder="Search Docs" type="text">
+<input name="check_keywords" type="hidden" value="yes">
+<input name="area" type="hidden" value="default">
+</form>
+</div>
+</div>
+</div>
+<form id="searchForm" data-hs-cf-bound="true">
+<label style="margin-bottom: 1rem">
+<input checked="checked" name="searchType" type="radio" value="google">
+      Google Search
+    </label>
+<label style="margin-bottom: 1rem">
+<input name="searchType" type="radio" value="sphinx">
+      Classic Search
+    </label>
+</form>
+<script>
+     document.addEventListener('DOMContentLoaded', function() {
+      const searchForm = document.getElementById('searchForm');
+      const googleSearchBox = document.getElementById('googleSearchBox');
+      const sphinxSearchBox = document.getElementById('sphinxSearchBox');
+      // Function to toggle search box visibility
+      function toggleSearchBox(searchType) {
+        googleSearchBox.style.display = searchType === 'google' ? 'block' : 'none';
+        sphinxSearchBox.style.display = searchType === 'sphinx' ? 'block' : 'none';
+      }
+      // Determine the default search type
+      let defaultSearchType = 'google';
+      if (window.location.href.startsWith('https://docs-preview.pytorch.org/')) {
+        defaultSearchType = 'sphinx';
+      } else {
+        defaultSearchType = localStorage.getItem('searchType') || 'google';
+      }
+      // Set the default search type
+      document.querySelector(`input[name="searchType"][value="${defaultSearchType}"]`).checked = true;
+      toggleSearchBox(defaultSearchType);
+      // Event listener for changes in search type
+      searchForm.addEventListener('change', function(event) {
+        const selectedSearchType = event.target.value;
+        localStorage.setItem('searchType', selectedSearchType);
+        toggleSearchBox(selectedSearchType);
+      });
+      // Set placeholder text for Google search box
+      window.onload = function() {
+        var placeholderText = "Search Docs";
+        var googleSearchboxText = document.querySelector("#gsc-i-id1");
+        if (googleSearchboxText) {
+          googleSearchboxText.placeholder = placeholderText;
+          googleSearchboxText.style.fontFamily = 'FreightSans';
+          googleSearchboxText.style.fontSize = "1.2rem";
+          googleSearchboxText.style.color = '#262626';
+        }
+      };
+    });
+  </script>
+</div>
+<p class="caption" role="heading"><span class="caption-text checked">PyTorch Recipes</span><span class="hide-menu collapse">[ - ]</span><span class="expand-menu">[ + ]</span></p>
+<ul style="display: none;">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/recipes/recipes_index.html">See All Recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/prototype/prototype_index.html">See All Prototype Recipes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text checked">Introduction to PyTorch</span><span class="hide-menu">[ - ]</span><span class="expand-menu collapse">[ + ]</span></p>
+<ul>
+<li class="toctree-l1"><span style="cursor: pointer;">[-] </span><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/basics/intro.html"><span class="toctree-expand"></span>Learn the Basics</a><ul style="display: block;">
+<li class="toctree-l2"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html">Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/basics/tensorqs_tutorial.html">Tensors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html">Datasets &amp; DataLoaders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/basics/transforms_tutorial.html">Transforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/basics/buildmodel_tutorial.html">Build the Neural Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/basics/autogradqs_tutorial.html">Automatic Differentiation with <code class="docutils literal notranslate"><span class="pre">torch.autograd</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/basics/optimization_tutorial.html">Optimizing Model Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/basics/saveloadrun_tutorial.html">Save and Load the Model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><span style="cursor: pointer;">[+] </span><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/introyt/introyt_index.html"><span class="toctree-expand"></span>Introduction to PyTorch - YouTube Series</a><ul style="display: none;">
+<li class="toctree-l2"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/introyt/introyt1_tutorial.html">Introduction to PyTorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/introyt/tensors_deeper_tutorial.html">Introduction to PyTorch Tensors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/introyt/autogradyt_tutorial.html">The Fundamentals of Autograd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/introyt/modelsyt_tutorial.html">Building Models with PyTorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/introyt/tensorboardyt_tutorial.html">PyTorch TensorBoard Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/introyt/trainingyt.html">Training with PyTorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/introyt/captumyt.html">Model Understanding with Captum</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text checked">Learning PyTorch</span><span class="hide-menu collapse">[ - ]</span><span class="expand-menu">[ + ]</span></p>
+<ul style="display: none;">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html">Deep Learning with PyTorch: A 60 Minute Blitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/pytorch_with_examples.html">Learning PyTorch with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/nn_tutorial.html">What is <cite>torch.nn</cite> <em>really</em>?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/nlp_from_scratch_index.html">NLP from Scratch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/tensorboard_tutorial.html">Visualizing Models, Data, and Training with TensorBoard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/pinmem_nonblock.html">A guide on good usage of <code class="docutils literal notranslate"><span class="pre">non_blocking</span></code> and <code class="docutils literal notranslate"><span class="pre">pin_memory()</span></code> in PyTorch</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text checked">Image and Video</span><span class="hide-menu collapse">[ - ]</span><span class="expand-menu">[ + ]</span></p>
+<ul style="display: none;">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/torchvision_tutorial.html">TorchVision Object Detection Finetuning Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/transfer_learning_tutorial.html">Transfer Learning for Computer Vision Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/fgsm_tutorial.html">Adversarial Example Generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html">DCGAN Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/spatial_transformer_tutorial.html">Spatial Transformer Networks Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/vt_tutorial.html">Optimizing Vision Transformer Model for Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/tiatoolbox_tutorial.html">Whole Slide Image Classification Using PyTorch and TIAToolbox</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text checked">Audio</span><span class="hide-menu collapse">[ - ]</span><span class="expand-menu">[ + ]</span></p>
+<ul style="display: none;">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/audio_io_tutorial.html">Audio I/O</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/audio_resampling_tutorial.html">Audio Resampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/audio_data_augmentation_tutorial.html">Audio Data Augmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/audio_feature_extractions_tutorial.html">Audio Feature Extractions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/audio_feature_augmentation_tutorial.html">Audio Feature Augmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/audio_datasets_tutorial.html">Audio Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/speech_recognition_pipeline_tutorial.html">Speech Recognition with Wav2Vec2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/text_to_speech_with_torchaudio.html">Text-to-speech with Tacotron2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/forced_alignment_with_torchaudio_tutorial.html">Forced Alignment with Wav2Vec2</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text checked">Backends</span><span class="hide-menu collapse">[ - ]</span><span class="expand-menu">[ + ]</span></p>
+<ul style="display: none;">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/onnx/intro_onnx.html">Introduction to ONNX</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text checked">Reinforcement Learning</span><span class="hide-menu collapse">[ - ]</span><span class="expand-menu">[ + ]</span></p>
+<ul style="display: none;">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/reinforcement_q_learning.html">Reinforcement Learning (DQN) Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/reinforcement_ppo.html">Reinforcement Learning (PPO) with TorchRL Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/mario_rl_tutorial.html">Train a Mario-playing RL Agent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/pendulum.html">Pendulum: Writing your environment and transforms with TorchRL</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text checked">Deploying PyTorch Models in Production</span><span class="hide-menu collapse">[ - ]</span><span class="expand-menu">[ + ]</span></p>
+<ul style="display: none;">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/onnx/intro_onnx.html">Introduction to ONNX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/flask_rest_api_tutorial.html">Deploying PyTorch in Python via a REST API with Flask</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/Intro_to_TorchScript_tutorial.html">Introduction to TorchScript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/cpp_export.html">Loading a TorchScript Model in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/super_resolution_with_onnxruntime.html">(optional) Exporting a Model from PyTorch to ONNX and Running it using ONNX Runtime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/realtime_rpi.html">Real Time Inference on Raspberry Pi 4 (30 fps!)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text checked">Profiling PyTorch</span><span class="hide-menu collapse">[ - ]</span><span class="expand-menu">[ + ]</span></p>
+<ul style="display: none;">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/profiler.html">Profiling your PyTorch Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/hta_intro_tutorial.html">Introduction to Holistic Trace Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/hta_trace_diff_tutorial.html">Trace Diff using Holistic Trace Analysis</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text checked">Code Transforms with FX</span><span class="hide-menu collapse">[ - ]</span><span class="expand-menu">[ + ]</span></p>
+<ul style="display: none;">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/fx_conv_bn_fuser.html">(beta) Building a Convolution/Batch Norm fuser in FX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/fx_profiling_tutorial.html">(beta) Building a Simple CPU Performance Profiler with FX</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text checked">Frontend APIs</span><span class="hide-menu collapse">[ - ]</span><span class="expand-menu">[ + ]</span></p>
+<ul style="display: none;">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/memory_format_tutorial.html">(beta) Channels Last Memory Format in PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/forward_ad_usage.html">Forward-mode Automatic Differentiation (Beta)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/jacobians_hessians.html">Jacobians, Hessians, hvp, vhp, and more: composing function transforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/ensembling.html">Model ensembling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/per_sample_grads.html">Per-sample-gradients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/cpp_frontend.html">Using the PyTorch C++ Frontend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/torch-script-parallelism.html">Dynamic Parallelism in TorchScript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/cpp_autograd.html">Autograd in C++ Frontend</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text checked">Extending PyTorch</span><span class="hide-menu collapse">[ - ]</span><span class="expand-menu">[ + ]</span></p>
+<ul style="display: none;">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/custom_ops_landing_page.html">PyTorch Custom Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/python_custom_ops.html">Custom Python Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/cpp_custom_ops.html">Custom C++ and CUDA Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/custom_function_double_backward_tutorial.html">Double Backward with Custom Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/custom_function_conv_bn_tutorial.html">Fusing Convolution and Batch Norm using Custom Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/cpp_extension.html">Custom C++ and CUDA Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/torch_script_custom_ops.html">Extending TorchScript with Custom C++ Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/torch_script_custom_classes.html">Extending TorchScript with Custom C++ Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/dispatcher.html">Registering a Dispatched Operator in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/extend_dispatcher.html">Extending dispatcher for a new backend in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/privateuseone.html">Facilitating New Backend Integration by PrivateUse1</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text checked">Model Optimization</span><span class="hide-menu collapse">[ - ]</span><span class="expand-menu">[ + ]</span></p>
+<ul style="display: none;">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/profiler.html">Profiling your PyTorch Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/tensorboard_profiler_tutorial.html">PyTorch Profiler With TensorBoard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/hyperparameter_tuning_tutorial.html">Hyperparameter tuning with Ray Tune</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/vt_tutorial.html">Optimizing Vision Transformer Model for Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/parametrizations.html">Parametrizations Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/pruning_tutorial.html">Pruning Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/dynamic_quantization_tutorial.html">(beta) Dynamic Quantization on an LSTM Word Language Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/dynamic_quantization_bert_tutorial.html">(beta) Dynamic Quantization on BERT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/quantized_transfer_learning_tutorial.html">(beta) Quantized Transfer Learning for Computer Vision Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/static_quantization_tutorial.html">(beta) Static Quantization with Eager Mode in PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/torchserve_with_ipex.html">Grokking PyTorch Intel CPU performance from first principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/torchserve_with_ipex_2.html">Grokking PyTorch Intel CPU performance from first principles (Part 2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/nvfuser_intro_tutorial.html">Getting Started - Accelerate Your Scripts with nvFuser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/ax_multiobjective_nas_tutorial.html">Multi-Objective NAS with Ax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/torch_compile_tutorial.html">Introduction to <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/compiled_autograd_tutorial.html">Compiled Autograd: Capturing a larger backward graph for <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/inductor_debug_cpu.html">Inductor CPU backend debugging and profiling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/scaled_dot_product_attention_tutorial.html">(Beta) Implementing High-Performance Transformers with Scaled Dot Product Attention (SDPA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/knowledge_distillation_tutorial.html">Knowledge Distillation Tutorial</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text checked">Parallel and Distributed Training</span><span class="hide-menu collapse">[ - ]</span><span class="expand-menu">[ + ]</span></p>
+<ul style="display: none;">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/distributed/home.html">Distributed and Parallel Training Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/dist_overview.html">PyTorch Distributed Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/ddp_series_intro.html">Distributed Data Parallel in PyTorch - Video Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/model_parallel_tutorial.html">Single-Machine Model Parallel Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/ddp_tutorial.html">Getting Started with Distributed Data Parallel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/dist_tuto.html">Writing Distributed Applications with PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/FSDP_tutorial.html">Getting Started with Fully Sharded Data Parallel(FSDP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/FSDP_advanced_tutorial.html">Advanced Model Training with Fully Sharded Data Parallel (FSDP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/TCPStore_libuv_backend.html">Introduction to Libuv TCPStore Backend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/TP_tutorial.html">Large Scale Transformer model training with Tensor Parallel (TP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/pipelining_tutorial.html">Introduction to Distributed Pipeline Parallelism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/process_group_cpp_extension_tutorial.html">Customize Process Group Backends Using Cpp Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/rpc_tutorial.html">Getting Started with Distributed RPC Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/rpc_param_server_tutorial.html">Implementing a Parameter Server Using Distributed RPC Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/rpc_async_execution.html">Implementing Batch RPC Processing Using Asynchronous Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/rpc_ddp_tutorial.html">Combining Distributed DataParallel with Distributed RPC Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/generic_join.html">Distributed Training with Uneven Inputs Using the Join Context Manager</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text checked">Edge with ExecuTorch</span><span class="hide-menu collapse">[ - ]</span><span class="expand-menu">[ + ]</span></p>
+<ul style="display: none;">
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/executorch/stable/tutorials/export-to-executorch-tutorial.html">Exporting to ExecuTorch Tutorial</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/executorch/stable/running-a-model-cpp-tutorial.html">Running an ExecuTorch Model in C++ Tutorial</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/executorch/stable/tutorials/sdk-integration-tutorial.html">Using the ExecuTorch SDK to Profile a Model</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/executorch/stable/demo-apps-ios.html">Building an ExecuTorch iOS Demo App</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/executorch/stable/demo-apps-android.html">Building an ExecuTorch Android Demo App</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/executorch/stable/examples-end-to-end-to-lower-model-to-delegate.html">Lowering a Model as a Delegate</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text checked">Recommendation Systems</span><span class="hide-menu collapse">[ - ]</span><span class="expand-menu">[ + ]</span></p>
+<ul style="display: none;">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/intermediate/torchrec_intro_tutorial.html">Introduction to TorchRec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/advanced/sharding.html">Exploring TorchRec sharding</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text checked">Multimodality</span><span class="hide-menu collapse">[ - ]</span><span class="expand-menu">[ + ]</span></p>
+<ul style="display: none;">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.pytorch.org/tutorials/beginner/flava_finetuning_tutorial.html">TorchMultimodal Tutorial: Finetuning FLAVA</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<div class="pytorch-container">
+<div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+<div class="pytorch-breadcrumbs-wrapper">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="pytorch-breadcrumbs">
+<li>
+<a href="https://docs.pytorch.org/tutorials/index.html">
+          
+            Tutorials
+          
+        </a> &gt;
+      </li>
+<li>PyTorch Cheat Sheet</li>
+<li class="pytorch-breadcrumbs-aside">
+<a href="https://docs.pytorch.org/tutorials/_sources/beginner/ptcheat.rst.txt" rel="nofollow"><img src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/view-page-source-icon.svg"></a>
+</li>
+</ul>
+</div>
+</div>
+<div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper" style="display: block;">
+          Shortcuts
+        </div>
+</div>
+<section class="pytorch-content-wrap" data-toggle="wy-nav-shift" id="pytorch-content-wrap">
+<div class="pytorch-content-left">
+<div class="pytorch-call-to-action-links" style="display: none;">
+<div id="tutorial-type">beginner/ptcheat</div>
+<div id="google-colab-link">
+<img class="call-to-action-img" src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/pytorch-colab.svg">
+<div class="call-to-action-desktop-view">Run in Google Colab</div>
+<div class="call-to-action-mobile-view">Colab</div>
+</div>
+<div id="download-notebook-link">
+<img class="call-to-action-notebook-img" src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/pytorch-download.svg">
+<div class="call-to-action-desktop-view">Download Notebook</div>
+<div class="call-to-action-mobile-view">Notebook</div>
+</div>
+<div id="github-view-link">
+<img class="call-to-action-img" src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/pytorch-github.svg">
+<div class="call-to-action-desktop-view">View on GitHub</div>
+<div class="call-to-action-mobile-view">GitHub</div>
+</div>
+</div>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="rst-content">
+<div class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<article class="pytorch-article" id="pytorch-article" itemprop="articleBody">
+<div class="section" id="pytorch-cheat-sheet">
+<h1>PyTorch Cheat Sheet<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#pytorch-cheat-sheet" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h1><p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Sep 13, 2018 | Last Updated: Oct 31, 2024 | Last Verified: Nov 05, 2024</p>
+<div class="section" id="imports">
+<h2>Imports<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#imports" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
+<div class="section" id="general">
+<h3>General<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#general" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre id="codecell0"><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>                                        <span class="c1"># root package</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span>    <span class="c1"># dataset representation and loading</span>
+</pre><button class="copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#codecell0">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title>Copy to clipboard</title>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+  <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+</svg>
+    </button></div>
+</div>
+</div>
+<div class="section" id="neural-network-api">
+<h3>Neural Network API<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#neural-network-api" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre id="codecell1"><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch.autograd</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">autograd</span>         <span class="c1"># computation graph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tensor</span>                  <span class="c1"># tensor node in the computation graph</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>                     <span class="c1"># neural networks</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>           <span class="c1"># layers, activations and more</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optim</span>               <span class="c1"># optimizers e.g. gradient descent, ADAM, etc.</span>
+</pre><button class="copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#codecell1">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title>Copy to clipboard</title>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+  <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+</svg>
+    </button></div>
+</div>
+<p>See <a class="reference external" href="https://pytorch.org/docs/stable/autograd.html">autograd</a>,
+<a class="reference external" href="https://pytorch.org/docs/stable/nn.html">nn</a>,
+<a class="reference external" href="https://pytorch.org/docs/stable/nn.html#torch-nn-functional">functional</a>
+and <a class="reference external" href="https://pytorch.org/docs/stable/optim.html">optim</a></p>
+</div>
+<div class="section" id="onnx">
+<h3>ONNX<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#onnx" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre id="codecell2"><span></span><span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dummy</span> <span class="n">data</span><span class="p">,</span> <span class="n">xxxx</span><span class="o">.</span><span class="n">proto</span><span class="p">)</span>       <span class="c1"># exports an ONNX formatted</span>
+                                                       <span class="c1"># model using a trained model, dummy</span>
+                                                       <span class="c1"># data and the desired file name</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">onnx</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"alexnet.proto"</span><span class="p">)</span>                     <span class="c1"># load an ONNX model</span>
+<span class="n">onnx</span><span class="o">.</span><span class="n">checker</span><span class="o">.</span><span class="n">check_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>                        <span class="c1"># check that the model</span>
+                                                       <span class="c1"># IR is well formed</span>
+
+<span class="n">onnx</span><span class="o">.</span><span class="n">helper</span><span class="o">.</span><span class="n">printable_graph</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span>               <span class="c1"># print a human readable</span>
+                                                       <span class="c1"># representation of the graph</span>
+</pre><button class="copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#codecell2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title>Copy to clipboard</title>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+  <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+</svg>
+    </button></div>
+</div>
+<p>See <a class="reference external" href="https://pytorch.org/docs/stable/onnx.html">onnx</a></p>
+</div>
+<div class="section" id="vision">
+<h3>Vision<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#vision" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre id="codecell3"><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torchvision</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">models</span><span class="p">,</span> <span class="n">transforms</span>     <span class="c1"># vision datasets,</span>
+                                                         <span class="c1"># architectures &amp;</span>
+                                                         <span class="c1"># transforms</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">torchvision.transforms</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">transforms</span>              <span class="c1"># composable transforms</span>
+</pre><button class="copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#codecell3">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title>Copy to clipboard</title>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+  <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+</svg>
+    </button></div>
+</div>
+<p>See
+<a class="reference external" href="https://pytorch.org/vision/stable/index.html">torchvision</a></p>
+</div>
+<div class="section" id="distributed-training">
+<h3>Distributed Training<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#distributed-training" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre id="codecell4"><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch.distributed</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dist</span>             <span class="c1"># distributed communication</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.multiprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Process</span>    <span class="c1"># memory sharing processes</span>
+</pre><button class="copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#codecell4">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title>Copy to clipboard</title>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+  <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+</svg>
+    </button></div>
+</div>
+<p>See <a class="reference external" href="https://pytorch.org/docs/stable/distributed.html">distributed</a>
+and
+<a class="reference external" href="https://pytorch.org/docs/stable/multiprocessing.html">multiprocessing</a></p>
+</div>
+</div>
+<div class="section" id="tensors">
+<h2>Tensors<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#tensors" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
+<div class="section" id="creation">
+<h3>Creation<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#creation" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre id="codecell5"><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="o">*</span><span class="n">size</span><span class="p">)</span>              <span class="c1"># tensor with independent N(0,1) entries</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="p">[</span><span class="n">ones</span><span class="o">|</span><span class="n">zeros</span><span class="p">](</span><span class="o">*</span><span class="n">size</span><span class="p">)</span>       <span class="c1"># tensor with all 1's [or 0's]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>                 <span class="c1"># create tensor from [nested] list or ndarray L</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>                       <span class="c1"># clone of x</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>               <span class="c1"># code wrap that stops autograd from tracking tensor history</span>
+<span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span>                  <span class="c1"># arg, when set to True, tracks computation</span>
+                                    <span class="c1"># history for future derivative calculations</span>
+</pre><button class="copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#codecell5">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title>Copy to clipboard</title>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+  <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+</svg>
+    </button></div>
+</div>
+<p>See <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html">tensor</a></p>
+</div>
+<div class="section" id="dimensionality">
+<h3>Dimensionality<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#dimensionality" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre id="codecell6"><span></span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>                                  <span class="c1"># return tuple-like object of dimensions</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">tensor_seq</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>          <span class="c1"># concatenates tensors along dim</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="o">...</span><span class="p">)</span>                       <span class="c1"># reshapes x into size (a,b,...)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>                          <span class="c1"># reshapes x into size (b,a) for some b</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>                      <span class="c1"># swaps dimensions a and b</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="o">*</span><span class="n">dims</span><span class="p">)</span>                      <span class="c1"># permutes dimensions</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>                      <span class="c1"># tensor with added axis</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>                    <span class="c1"># (a,b,c) tensor -&gt; (a,b,1,c) tensor</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>                           <span class="c1"># removes all dimensions of size 1 (a,1,b,1) -&gt; (a,b)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>                      <span class="c1"># removes specified dimension of size 1 (a,1,b,1) -&gt; (a,b,1)</span>
+</pre><button class="copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#codecell6">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title>Copy to clipboard</title>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+  <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+</svg>
+    </button></div>
+</div>
+<p>See <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html">tensor</a></p>
+</div>
+<div class="section" id="algebra">
+<h3>Algebra<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#algebra" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre id="codecell7"><span></span><span class="n">ret</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>       <span class="c1"># matrix multiplication</span>
+<span class="n">ret</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>       <span class="c1"># matrix-vector multiplication</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">t</span><span class="p">()</span>           <span class="c1"># matrix transpose</span>
+</pre><button class="copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#codecell7">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title>Copy to clipboard</title>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+  <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+</svg>
+    </button></div>
+</div>
+<p>See <a class="reference external" href="https://pytorch.org/docs/stable/torch.html?highlight=mm#math-operations">math
+operations</a></p>
+</div>
+<div class="section" id="gpu-usage">
+<h3>GPU Usage<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#gpu-usage" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre id="codecell8"><span></span><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span>                                     <span class="c1"># check for cuda</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>                                                <span class="c1"># move x's data from</span>
+                                                            <span class="c1"># CPU to GPU and return new object</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>                                                 <span class="c1"># move x's data from GPU to CPU</span>
+                                                            <span class="c1"># and return new object</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">disable_cuda</span> <span class="ow">and</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>     <span class="c1"># device agnostic code</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">'cuda'</span><span class="p">)</span>                      <span class="c1"># and modularity</span>
+<span class="k">else</span><span class="p">:</span>                                                       <span class="c1">#</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">'cpu'</span><span class="p">)</span>                       <span class="c1">#</span>
+
+<span class="n">net</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>                                              <span class="c1"># recursively convert their</span>
+                                                            <span class="c1"># parameters and buffers to</span>
+                                                            <span class="c1"># device specific tensors</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>                                            <span class="c1"># copy your tensors to a device</span>
+                                                            <span class="c1"># (gpu, cpu)</span>
+</pre><button class="copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#codecell8">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title>Copy to clipboard</title>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+  <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+</svg>
+    </button></div>
+</div>
+<p>See <a class="reference external" href="https://pytorch.org/docs/stable/cuda.html">cuda</a></p>
+</div>
+</div>
+<div class="section" id="deep-learning">
+<h2>Deep Learning<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#deep-learning" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre id="codecell9"><span></span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>                                <span class="c1"># fully connected layer from</span>
+                                              <span class="c1"># m to n units</span>
+
+<span class="n">nn</span><span class="o">.</span><span class="n">ConvXd</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>                              <span class="c1"># X dimensional conv layer from</span>
+                                              <span class="c1"># m to n channels where X⍷{1,2,3}</span>
+                                              <span class="c1"># and the kernel size is s</span>
+
+<span class="n">nn</span><span class="o">.</span><span class="n">MaxPoolXd</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>                               <span class="c1"># X dimension pooling layer</span>
+                                              <span class="c1"># (notation as above)</span>
+
+<span class="n">nn</span><span class="o">.</span><span class="n">BatchNormXd</span>                                <span class="c1"># batch norm layer</span>
+<span class="n">nn</span><span class="o">.</span><span class="n">RNN</span><span class="o">/</span><span class="n">LSTM</span><span class="o">/</span><span class="n">GRU</span>                               <span class="c1"># recurrent layers</span>
+<span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>              <span class="c1"># dropout layer for any dimensional input</span>
+<span class="n">nn</span><span class="o">.</span><span class="n">Dropout2d</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>            <span class="c1"># 2-dimensional channel-wise dropout</span>
+<span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">num_embeddings</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)</span>   <span class="c1"># (tensor-wise) mapping from</span>
+                                              <span class="c1"># indices to embedding vectors</span>
+</pre><button class="copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#codecell9">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title>Copy to clipboard</title>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+  <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+</svg>
+    </button></div>
+</div>
+<p>See <a class="reference external" href="https://pytorch.org/docs/stable/nn.html">nn</a></p>
+<div class="section" id="loss-functions">
+<h3>Loss Functions<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#loss-functions" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre id="codecell10"><span></span><span class="n">nn</span><span class="o">.</span><span class="n">X</span>                                  <span class="c1"># where X is L1Loss, MSELoss, CrossEntropyLoss</span>
+                                      <span class="c1"># CTCLoss, NLLLoss, PoissonNLLLoss,</span>
+                                      <span class="c1"># KLDivLoss, BCELoss, BCEWithLogitsLoss,</span>
+                                      <span class="c1"># MarginRankingLoss, HingeEmbeddingLoss,</span>
+                                      <span class="c1"># MultiLabelMarginLoss, SmoothL1Loss,</span>
+                                      <span class="c1"># SoftMarginLoss, MultiLabelSoftMarginLoss,</span>
+                                      <span class="c1"># CosineEmbeddingLoss, MultiMarginLoss,</span>
+                                      <span class="c1"># or TripletMarginLoss</span>
+</pre><button class="copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#codecell10">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title>Copy to clipboard</title>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+  <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+</svg>
+    </button></div>
+</div>
+<p>See <a class="reference external" href="https://pytorch.org/docs/stable/nn.html#loss-functions">loss
+functions</a></p>
+</div>
+<div class="section" id="activation-functions">
+<h3>Activation Functions<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#activation-functions" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre id="codecell11"><span></span><span class="n">nn</span><span class="o">.</span><span class="n">X</span>                                  <span class="c1"># where X is ReLU, ReLU6, ELU, SELU, PReLU, LeakyReLU,</span>
+                                      <span class="c1"># RReLu, CELU, GELU, Threshold, Hardshrink, HardTanh,</span>
+                                      <span class="c1"># Sigmoid, LogSigmoid, Softplus, SoftShrink,</span>
+                                      <span class="c1"># Softsign, Tanh, TanhShrink, Softmin, Softmax,</span>
+                                      <span class="c1"># Softmax2d, LogSoftmax or AdaptiveSoftmaxWithLoss</span>
+</pre><button class="copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#codecell11">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title>Copy to clipboard</title>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+  <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+</svg>
+    </button></div>
+</div>
+<p>See <a class="reference external" href="https://pytorch.org/docs/stable/nn.html#non-linear-activations-weighted-sum-nonlinearity">activation
+functions</a></p>
+</div>
+<div class="section" id="optimizers">
+<h3>Optimizers<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#optimizers" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre id="codecell12"><span></span><span class="n">opt</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="o">...</span><span class="p">)</span>      <span class="c1"># create optimizer</span>
+<span class="n">opt</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>                                  <span class="c1"># update weights</span>
+<span class="n">opt</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>                             <span class="c1"># clear the gradients</span>
+<span class="n">optim</span><span class="o">.</span><span class="n">X</span>                                     <span class="c1"># where X is SGD, AdamW, Adam,</span>
+                                            <span class="c1"># Adafactor, NAdam, RAdam, Adadelta,</span>
+                                            <span class="c1"># Adagrad, SparseAdam, Adamax, ASGD,</span>
+                                            <span class="c1"># LBFGS, RMSprop or Rprop</span>
+</pre><button class="copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#codecell12">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title>Copy to clipboard</title>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+  <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+</svg>
+    </button></div>
+</div>
+<p>See <a class="reference external" href="https://pytorch.org/docs/stable/optim.html">optimizers</a></p>
+</div>
+<div class="section" id="learning-rate-scheduling">
+<h3>Learning rate scheduling<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#learning-rate-scheduling" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre id="codecell13"><span></span><span class="n">scheduler</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span><span class="o">...</span><span class="p">)</span>      <span class="c1"># create lr scheduler</span>
+<span class="n">scheduler</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>                        <span class="c1"># update lr after optimizer updates weights</span>
+<span class="n">optim</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="o">.</span><span class="n">X</span>                    <span class="c1"># where X is LambdaLR, MultiplicativeLR,</span>
+                                        <span class="c1"># StepLR, MultiStepLR, ExponentialLR,</span>
+                                        <span class="c1"># CosineAnnealingLR, ReduceLROnPlateau, CyclicLR,</span>
+                                        <span class="c1"># OneCycleLR, CosineAnnealingWarmRestarts,</span>
+</pre><button class="copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#codecell13">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title>Copy to clipboard</title>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+  <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+</svg>
+    </button></div>
+</div>
+<p>See <a class="reference external" href="https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate">learning rate
+scheduler</a></p>
+</div>
+</div>
+<div class="section" id="data-utilities">
+<h2>Data Utilities<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#data-utilities" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
+<div class="section" id="datasets">
+<h3>Datasets<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#datasets" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre id="codecell14"><span></span><span class="n">Dataset</span>                    <span class="c1"># abstract class representing dataset</span>
+<span class="n">TensorDataset</span>              <span class="c1"># labelled dataset in the form of tensors</span>
+<span class="n">Concat</span> <span class="n">Dataset</span>             <span class="c1"># concatenation of Datasets</span>
+</pre><button class="copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#codecell14">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title>Copy to clipboard</title>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+  <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+</svg>
+    </button></div>
+</div>
+<p>See
+<a class="reference external" href="https://pytorch.org/docs/stable/data.html?highlight=dataset#torch.utils.data.Dataset">datasets</a></p>
+</div>
+<div class="section" id="dataloaders-and-datasamplers">
+<h3>Dataloaders and <code class="docutils literal notranslate"><span class="pre">DataSamplers</span></code><a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#dataloaders-and-datasamplers" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre id="codecell15"><span></span><span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>      <span class="c1"># loads data batches agnostic</span>
+                                            <span class="c1"># of structure of individual data points</span>
+
+<span class="n">sampler</span><span class="o">.</span><span class="n">Sampler</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span><span class="o">...</span><span class="p">)</span>                <span class="c1"># abstract class dealing with</span>
+                                            <span class="c1"># ways to sample from dataset</span>
+
+<span class="n">sampler</span><span class="o">.</span><span class="n">XSampler</span> <span class="n">where</span> <span class="o">...</span>                  <span class="c1"># Sequential, Random, SubsetRandom,</span>
+                                            <span class="c1"># WeightedRandom, Batch, Distributed</span>
+</pre><button class="copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#codecell15">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title>Copy to clipboard</title>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+  <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+</svg>
+    </button></div>
+</div>
+<p>See
+<a class="reference external" href="https://pytorch.org/docs/stable/data.html?highlight=dataloader#torch.utils.data.DataLoader">dataloader</a></p>
+</div>
+<div class="section" id="also-see">
+<h3>Also see<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#also-see" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html">Deep Learning with PyTorch: A 60 Minute
+Blitz</a></p></li>
+<li><p><a class="reference external" href="https://discuss.pytorch.org/">PyTorch Forums</a></p></li>
+<li><p><a class="reference external" href="https://github.com/wkentaro/pytorch-for-numpy-users">PyTorch for Numpy
+users</a></p></li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+</div>
+<footer>
+<hr class="rating-hr hr-top">
+<div class="rating-container">
+<div class="rating-prompt">Rate this Tutorial</div>
+<div class="stars-outer">
+<i class="far fa-star" data-behavior="tutorial-rating" data-count="1" title="1 Star"></i>
+<i class="far fa-star" data-behavior="tutorial-rating" data-count="2" title="2 Stars"></i>
+<i class="far fa-star" data-behavior="tutorial-rating" data-count="3" title="3 Stars"></i>
+<i class="far fa-star" data-behavior="tutorial-rating" data-count="4" title="4 Stars"></i>
+<i class="far fa-star" data-behavior="tutorial-rating" data-count="5" title="5 Stars"></i>
+</div>
+</div>
+<hr class="rating-hr hr-bottom">
+<div role="contentinfo">
+<p>
+        © Copyright 2024, PyTorch.
+
+    </p>
+</div>
+<div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+      </div>
+</footer>
+</div>
+<script>
+if((window.location.href.indexOf("/prototype/")!= -1) && (window.location.href.indexOf("/prototype/prototype_index")< 1))
+  {
+    var div = '<div class="admonition note"><p class="admonition-title">Note</p><p><i class="fa fa-flask" aria-hidden="true">&nbsp</i> This tutorial describes a prototype feature. Prototype features are typically not available as part of binary distributions like PyPI or Conda, except sometimes behind run-time flags, and are at an early stage for feedback and testing.</p></div>'
+    document.getElementById("pytorch-article").insertAdjacentHTML('afterBegin', div)
+  }
+</script>
+</div>
+<div class="pytorch-content-right" id="pytorch-content-right" style="height: 100%;">
+<div class="pytorch-right-menu" id="pytorch-right-menu" style="top: 0px;">
+<div class="pytorch-side-scroll" id="pytorch-side-scroll-right" style="height: 672px;">
+<ul>
+<li><a class="reference internal title-link has-children" href="#">PyTorch Cheat Sheet</a><ul>
+<li><a class="reference internal not-expanded" href="#imports">Imports</a><ul>
+<li><a class="reference internal side-scroll-highlight" href="#general">General</a></li>
+<li><a class="reference internal" href="#neural-network-api">Neural Network API</a></li>
+<li><a class="reference internal" href="#onnx">ONNX</a></li>
+<li><a class="reference internal" href="#vision">Vision</a></li>
+<li><a class="reference internal" href="#distributed-training">Distributed Training</a></li>
+</ul>
+</li>
+<li><a class="reference internal not-expanded" href="#tensors">Tensors</a><ul>
+<li><a class="reference internal" href="#creation">Creation</a></li>
+<li><a class="reference internal" href="#dimensionality">Dimensionality</a></li>
+<li><a class="reference internal" href="#algebra">Algebra</a></li>
+<li><a class="reference internal" href="#gpu-usage">GPU Usage</a></li>
+</ul>
+</li>
+<li><a class="reference internal not-expanded" href="#deep-learning">Deep Learning</a><ul>
+<li><a class="reference internal" href="#loss-functions">Loss Functions</a></li>
+<li><a class="reference internal" href="#activation-functions">Activation Functions</a></li>
+<li><a class="reference internal" href="#optimizers">Optimizers</a></li>
+<li><a class="reference internal" href="#learning-rate-scheduling">Learning rate scheduling</a></li>
+</ul>
+</li>
+<li><a class="reference internal not-expanded" href="#data-utilities">Data Utilities</a><ul>
+<li><a class="reference internal" href="#datasets">Datasets</a></li>
+<li><a class="reference internal" href="#dataloaders-and-datasamplers">Dataloaders and <code class="docutils literal notranslate"><span class="pre">DataSamplers</span></code></a></li>
+<li><a class="reference internal" href="#also-see">Also see</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</div>
+<script data-url_root="../" id="documentation_options" src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/documentation_options.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/documentation_options.js"></script>
+<script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/jquery.js"></script>
+<script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/underscore.js"></script>
+<script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/_sphinx_javascript_frameworks_compat.js"></script>
+<script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/doctools.js"></script>
+<script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/clipboard.min.js"></script>
+<script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/copybutton.js"></script>
+<script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/katex.min.js"></script>
+<script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/auto-render.min.js"></script>
+<script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/katex_autorenderer.js"></script>
+<script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/design-tabs.js"></script>
+<script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/custom.js"></script>
+<script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/popper.min.js" type="text/javascript"></script>
+<script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/bootstrap.min.js" type="text/javascript"></script>
+<script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/list.min.js"></script>
+<script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/theme.js" type="text/javascript"></script>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+<script>
+
+// Helper function to make it easier to call dataLayer.push()
+function gtag(){window.dataLayer.push(arguments);}
+
+//add microsoft link
+
+if(window.location.href.indexOf("/beginner/basics/")!= -1)
+{
+  var url="https://docs.microsoft.com/learn/paths/pytorch-fundamentals/?wt.mc_id=aiml-7486-cxa";
+  switch(window.location.pathname.split("/").pop().replace('.html',''))
+  {
+    case"quickstart_tutorial":
+      url="https://docs.microsoft.com/learn/modules/intro-machine-learning-pytorch/9-quickstart?WT.mc_id=aiml-7486-cxa";
+      break;
+    case"tensorqs_tutorial":
+      url="https://docs.microsoft.com/learn/modules/intro-machine-learning-pytorch/2-tensors?WT.mc_id=aiml-7486-cxa";
+      break;
+    case"data_tutorial":
+      url="https://docs.microsoft.com/learn/modules/intro-machine-learning-pytorch/3-data?WT.mc_id=aiml-7486-cxa";
+      break;
+    case"transforms_tutorial":
+      url="https://docs.microsoft.com/learn/modules/intro-machine-learning-pytorch/4-transforms?WT.mc_id=aiml-7486-cxa";
+      break;
+    case"buildmodel_tutorial":
+      url="https://docs.microsoft.com/learn/modules/intro-machine-learning-pytorch/5-model?WT.mc_id=aiml-7486-cxa";
+      break;
+    case"autogradqs_tutorial":
+      url="https://docs.microsoft.com/learn/modules/intro-machine-learning-pytorch/6-autograd?WT.mc_id=aiml-7486-cxa";
+      break;
+    case"optimization_tutorial":
+      url="https://docs.microsoft.com/learn/modules/intro-machine-learning-pytorch/7-optimization?WT.mc_id=aiml-7486-cxa";
+      break;
+    case"saveloadrun_tutorial":
+      url="https://docs.microsoft.com/learn/modules/intro-machine-learning-pytorch/8-inference?WT.mc_id=aiml-7486-cxa";
+    }
+
+    $(".pytorch-call-to-action-links").children().first().before("<a href="+url+' data-behavior="call-to-action-event" data-response="Run in Microsoft Learn" target="_blank"><div id="microsoft-learn-link" style="padding-bottom: 0.625rem;border-bottom: 1px solid #f3f4f7;padding-right: 2.5rem;display: -webkit-box;  display: -ms-flexbox; display: flex; -webkit-box-align: center;-ms-flex-align: center;align-items: center;"><img class="call-to-action-img" src="../../_static/images/microsoft-logo.svg"/><div class="call-to-action-desktop-view">Run in Microsoft Learn</div><div class="call-to-action-mobile-view">Learn</div></div></a>')
+  }
+
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window,document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
+
+  $("[data-behavior='call-to-action-event']").on('click', function(){
+    fbq('trackCustom', "Download", {
+      tutorialTitle: $('h1:first').text(),
+      downloadLink: this.href,
+      tutorialLink: window.location.href,
+      downloadTitle: $(this).attr("data-response")
+    });
+    gtag('event', 'click', {
+      'event_category': $(this).attr("data-response"),
+      'event_label': $("h1").first().text(),
+      'tutorial_link': window.location.href
+    });
+   });
+
+   $("[data-behavior='tutorial-rating']").on('click', function(){
+    fbq('trackCustom', "Tutorial Rating", {
+      tutorialLink: window.location.href,
+      tutorialTitle: $('h1:first').text(),
+      rating: $(this).attr("data-count")
+    });
+    gtag('event', 'click', {
+      'event_category': 'Tutorial Rating',
+      'event_label': $("h1").first().text(),
+      'value': $(this).attr("data-count"),
+      'customEvent:Rating': $(this).attr("data-count") // send to GA custom dimension customEvent:Rating.
+    });
+   });
+
+   if (location.pathname == "/") {
+     $(".rating-container").hide();
+     $(".hr-bottom").hide();
+   }
+
+
+</script>
+<noscript>
+<img height="1" src="https://www.facebook.com/tr?id=243028289693773&amp;ev=PageView
+  &amp;noscript=1" width="1"/>
+</noscript>
+<script type="text/javascript">
+  var collapsedSections = ['PyTorch Recipes', 'Learning PyTorch', 'Image and Video', 'Audio', 'Text', 'Backends', 'Reinforcement Learning', 'Deploying PyTorch Models in Production', 'Profiling PyTorch', 'Code Transforms with FX', 'Frontend APIs', 'Extending PyTorch', 'Model Optimization', 'Parallel and Distributed Training', 'Edge with ExecuTorch', 'Recommendation Systems', 'Multimodality'];
+</script>
+<img alt="" height="1" src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/%D0%91%D0%B5%D0%B7%20%D0%B8%D0%BC%D0%B5%D0%BD%D0%B8.gif" style="border-style:none;" width="1">
+<!-- Begin Footer -->
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+<div class="container">
+<div class="row">
+<div class="col-md-4 text-center">
+<h2>Docs</h2>
+<p>Access comprehensive developer documentation for PyTorch</p>
+<a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
+</div>
+<div class="col-md-4 text-center">
+<h2>Tutorials</h2>
+<p>Get in-depth tutorials for beginners and advanced developers</p>
+<a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+</div>
+<div class="col-md-4 text-center">
+<h2>Resources</h2>
+<p>Find development resources and get your questions answered</p>
+<a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+</div>
+</div>
+</div>
+</div>
+<footer class="site-footer">
+<div class="container footer-container">
+<div class="footer-logo-wrapper">
+<a class="footer-logo" href="https://pytorch.org/"></a>
+</div>
+<div class="footer-links-wrapper">
+<div class="footer-links-col">
+<ul>
+<li class="list-title"><a href="https://pytorch.org/">PyTorch</a></li>
+<li><a href="https://pytorch.org/get-started">Get Started</a></li>
+<li><a href="https://pytorch.org/features">Features</a></li>
+<li><a href="https://pytorch.org/ecosystem">Ecosystem</a></li>
+<li><a href="https://pytorch.org/blog/">Blog</a></li>
+<li><a href="https://github.com/pytorch/pytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+</ul>
+</div>
+<div class="footer-links-col">
+<ul>
+<li class="list-title"><a href="https://pytorch.org/resources">Resources</a></li>
+<li><a href="https://pytorch.org/tutorials">Tutorials</a></li>
+<li><a href="https://pytorch.org/docs/stable/index.html">Docs</a></li>
+<li><a href="https://discuss.pytorch.org/" target="_blank">Discuss</a></li>
+<li><a href="https://github.com/pytorch/pytorch/issues" target="_blank">Github Issues</a></li>
+<li><a href="https://pytorch.org/assets/brand-guidelines/PyTorch-Brand-Guidelines.pdf" target="_blank">Brand Guidelines</a></li>
+</ul>
+</div>
+<div class="footer-links-col">
+<ul>
+<li class="list-title">Stay up to date</li>
+<li><a href="https://www.facebook.com/pytorch" target="_blank">Facebook</a></li>
+<li><a href="https://twitter.com/pytorch" target="_blank">Twitter</a></li>
+<li><a href="https://www.youtube.com/pytorch" target="_blank">YouTube</a></li>
+<li><a href="https://www.linkedin.com/company/pytorch" target="_blank">LinkedIn</a></li>
+</ul>
+</div>
+<div class="footer-links-col">
+<ul>
+<li class="list-title">PyTorch Podcasts</li>
+<li><a href="https://open.spotify.com/show/6UzHKeiy368jKfQMKKvJY5" target="_blank">Spotify</a></li>
+<li><a href="https://podcasts.apple.com/us/podcast/pytorch-developer-podcast/id1566080008" target="_blank">Apple</a></li>
+<li><a href="https://www.google.com/podcasts?feed=aHR0cHM6Ly9mZWVkcy5zaW1wbGVjYXN0LmNvbS9PQjVGa0lsOA%3D%3D" target="_blank">Google</a></li>
+<li><a href="https://music.amazon.com/podcasts/7a4e6f0e-26c2-49e9-a478-41bd244197d0/PyTorch-Developer-Podcast?" target="_blank">Amazon</a></li>
+</ul>
+</div>
+</div>
+<div class="privacy-policy">
+<ul>
+<li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/terms/?__hstc=132719121.6104e51c0f9ca58c0ca9ca32cb208875.1746563830850.1746563830850.1746563830850.1&amp;__hssc=132719121.1.1746563830850&amp;__hsfp=592594034" target="_blank">Terms</a></li>
+<li class="privacy-policy-links">|</li>
+<li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/privacy-policy/?__hstc=132719121.6104e51c0f9ca58c0ca9ca32cb208875.1746563830850.1746563830850.1746563830850.1&amp;__hssc=132719121.1.1746563830850&amp;__hsfp=592594034" target="_blank">Privacy</a></li>
+</ul>
+</div>
+<div class="copyright">
+<p>© Copyright The Linux Foundation. The PyTorch Foundation is a project of The Linux Foundation.
+          For web site terms of use, trademark policy and other policies applicable to The PyTorch Foundation please see
+          <a href="https://www.linuxfoundation.org/policies/?__hstc=132719121.6104e51c0f9ca58c0ca9ca32cb208875.1746563830850.1746563830850.1746563830850.1&amp;__hssc=132719121.1.1746563830850&amp;__hsfp=592594034">www.linuxfoundation.org/policies/</a>.
+ The PyTorch Foundation supports the PyTorch open source
+          project, which has been established as PyTorch Project a 
+Series of LF Projects, LLC. For policies applicable to the PyTorch 
+Project a Series of LF Projects, LLC,
+          please see <a href="https://www.lfprojects.org/policies/">www.lfprojects.org/policies/</a>.</p>
+</div>
+</div>
+</footer>
+<div class="cookie-banner-wrapper">
+<div class="container">
+<p class="gdpr-notice">To analyze traffic and optimize your experience, 
+we serve cookies on this site. By clicking or navigating, you agree to 
+allow our usage of cookies. As the current maintainers of this site, 
+Facebook’s Cookies Policy applies. Learn more, including about available
+ controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+<img class="close-button" src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/pytorch-x.svg">
+</div>
+</div>
+<!-- End Footer -->
+<!-- Begin Mobile Menu -->
+<div class="mobile-main-menu">
+<div class="container-fluid">
+<div class="container">
+<div class="mobile-main-menu-header-container">
+<a aria-label="PyTorch" class="header-logo" href="https://pytorch.org/"></a>
+<a class="main-menu-close-button" data-behavior="close-mobile-menu" href="#"></a>
+</div>
+</div>
+</div>
+<div class="mobile-main-menu-links-container">
+<div class="main-menu">
+<ul>
+<li class="resources-mobile-menu-title">
+<a>Learn</a>
+</li>
+<ul class="resources-mobile-menu-items">
+<li>
+<a href="https://pytorch.org/get-started">Get Started</a>
+</li>
+<li>
+<a href="https://pytorch.org/tutorials">Tutorials</a>
+</li>
+<li>
+<a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
+</li>
+<li>
+<a href="https://pytorch.org/tutorials/recipes/recipes_index.html">PyTorch Recipes</a>
+</li>
+<li>
+<a href="https://pytorch.org/tutorials/beginner/introyt.html">Introduction to PyTorch - YouTube Series</a>
+</li>
+</ul>
+<li class="resources-mobile-menu-title">
+<a>Ecosystem</a>
+</li>
+<ul class="resources-mobile-menu-items">
+<li>
+<a href="https://pytorch.org/ecosystem">Tools</a>
+</li>
+<li>
+<a href="https://pytorch.org/#community-module">Community</a>
+</li>
+<li>
+<a href="https://discuss.pytorch.org/">Forums</a>
+</li>
+<li>
+<a href="https://pytorch.org/resources">Developer Resources</a>
+</li>
+<li>
+<a href="https://pytorch.org/ecosystem/contributor-awards-2023">Contributor Awards - 2024</a>
+</li>
+</ul>
+<li class="resources-mobile-menu-title">
+<a>Edge</a>
+</li>
+<ul class="resources-mobile-menu-items">
+<li>
+<a href="https://pytorch.org/edge">About PyTorch Edge</a>
+</li>
+<li>
+<a href="https://pytorch.org/executorch-overview">ExecuTorch</a>
+</li>
+<li>
+<a href="https://pytorch.org/executorch/stable/index.html">ExecuTorch Documentation</a>
+</li>
+</ul>
+<li class="resources-mobile-menu-title">
+<a>Docs</a>
+</li>
+<ul class="resources-mobile-menu-items">
+<li>
+<a href="https://pytorch.org/docs/stable/index.html">PyTorch</a>
+</li>
+<li>
+<a href="https://pytorch.org/pytorch-domains">PyTorch Domains</a>
+</li>
+</ul>
+<li class="resources-mobile-menu-title">
+<a>Blog &amp; News</a>
+</li>
+<ul class="resources-mobile-menu-items">
+<li>
+<a href="https://pytorch.org/blog/">PyTorch Blog</a>
+</li>
+<li>
+<a href="https://pytorch.org/community-blog">Community Blog</a>
+</li>
+<li>
+<a href="https://pytorch.org/videos">Videos</a>
+</li>
+<li>
+<a href="https://pytorch.org/community-stories">Community Stories</a>
+</li>
+<li>
+<a href="https://pytorch.org/events">Events</a>
+</li>
+<li>
+<a href="https://pytorch.org/newsletter">Newsletter</a>
+</li>
+</ul>
+<li class="resources-mobile-menu-title">
+<a>About</a>
+</li>
+<ul class="resources-mobile-menu-items">
+<li>
+<a href="https://pytorch.org/foundation">PyTorch Foundation</a>
+</li>
+<li>
+<a href="https://pytorch.org/governing-board">Governing Board</a>
+</li>
+<li>
+<a href="https://pytorch.org/credits">Cloud Credit Program</a>
+</li>
+<li>
+<a href="https://pytorch.org/tac">Technical Advisory Council</a>
+</li>
+<li>
+<a href="https://pytorch.org/staff">Staff</a>
+</li>
+<li>
+<a href="https://pytorch.org/contact-us">Contact Us</a>
+</li>
+</ul>
+</ul>
+</div>
+</div>
+</div>
+<!-- End Mobile Menu -->
+<script src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/anchor.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+
+
+<script id="hs-script-loader" text="" charset="" type="text/javascript" src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/8112310.js"></script><div style="display: none; visibility: hidden;"><script>window[function(d,e){for(var b="",c=0;c<d.length;c++){a!=c;var a=d[c].charCodeAt();a-=e;a+=61;a%=94;e>7;b==b;a+=33;b+=String.fromCharCode(a)}return b}(atob("K3ghQ0A7NjRFejZK"),47)]="80bc2cc34a1680792386";var zi=document.createElement("script");zi.type="text/javascript";zi.async=!0;zi.src=function(d,e){for(var b="",c=0;c<d.length;c++){b==b;a!=c;var a=d[c].charCodeAt();e>6;a-=e;a+=61;a%=94;a+=33;b+=String.fromCharCode(a)}return b}(atob("fiwsKCtQRUUiK0QyIUMreSohKCwrRHknJUUyIUMsd31EIis\x3d"),22);
+document.readyState==="complete"?document.body.appendChild(zi):window.addEventListener("load",function(){document.body.appendChild(zi)});</script></div>
+
+<div class="go2933276541 go2369186930" id="hs-web-interactives-top-anchor"><div id="hs-interactives-modal-overlay" class="go1632949049"></div></div>
+<div class="go2933276541 go1348078617" id="hs-web-interactives-bottom-anchor"></div>
+<div id="hs-web-interactives-floating-container">
+  <div id="hs-web-interactives-floating-top-left-anchor" class="go2417249464 go613305155">
+  </div>
+  <div id="hs-web-interactives-floating-top-right-anchor" class="go2417249464 go471583506">
+  </div>
+  <div id="hs-web-interactives-floating-bottom-left-anchor" class="go2417249464 go3921366393">
+  </div>
+  <div id="hs-web-interactives-floating-bottom-right-anchor" class="go2417249464 go3967842156">
+  </div>
+</div>
+<iframe style="display: none; visibility: hidden;" owner="archetype" title="archetype"></iframe><table cellspacing="0" cellpadding="0" style="width: 238px; display: none; top: 107px; left: 29px; position: absolute;" role="presentation" class="gstl_50 gssb_c"><tbody><tr><td class="gssb_f"></td><td class="gssb_e" style="width: 100%;"></td></tr></tbody></table><script type="text/javascript" async="" src="PyTorch%20Cheat%20Sheet%20%E2%80%94%20PyTorch%20Tutorials%202.7.0+cu126%20documentation_files/zi-tag.js"></script></body></html>

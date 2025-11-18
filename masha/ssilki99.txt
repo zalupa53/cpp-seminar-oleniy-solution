@@ -1,0 +1,3 @@
+https://deepseekpro.org/guide/building-an-image-similarity-search-engine-with-faiss-and-clip/
+https://github.com/MobileTeleSystems/RecTools/blob/main/examples/5_benchmark_iALS_with_features.ipynb
+https://habr.com/ru/articles/773126/?ysclid=mi3p0z4aru392752315
